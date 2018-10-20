@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DattingApp.Api.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DattingApp.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -18,6 +20,8 @@ namespace DattingApp.Api.Controllers
             this._context = context;
 
         }
+
+        // [AllowAnonymous]
         // GET api/values
         [HttpGet]
         public async Task<IActionResult> GetValues()

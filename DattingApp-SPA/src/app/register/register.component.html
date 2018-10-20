@@ -1,0 +1,30 @@
+
+
+<form #registerForm="ngForm" (ngSubmit)="register()">
+
+  <div class="form-label-group">
+    <label for="inputUsername">Username</label>
+    <input id="inputUsername" class="form-control" placeholder="Username" autofocus="" type="text"
+      required
+      [(ngModel)]="model.username"
+      name="Username"
+    >
+  </div>
+  
+  <div class="form-label-group">
+    <label for="inputPassword">Password</label>
+    <input id="inputPassword" class="form-control" placeholder="Password" type="password"
+    required
+    minlength="3"
+    [(ngModel)]="model.password"
+    name="password"
+    >
+  </div>
+  <div class="form-group"><hr></div>
+
+  <button [disabled]="!registerForm.valid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+  <button type="button" class="btn btn-lg btn-default btn-block" (click)="cancel()" type="submit">Cancel</button>
+
+  <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+</form>
