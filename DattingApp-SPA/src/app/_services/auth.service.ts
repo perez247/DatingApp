@@ -1,13 +1,16 @@
-import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {JwtHelperService} from '@auth0/angular-jwt';
+
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService extends BaseService {
+export class AuthService extends BaseService implements OnInit {
+  jwtHelper = new JwtHelperService();
+  authUser: any = {};
 
 constructor(private http: HttpClient) {
   super();
@@ -15,6 +18,9 @@ constructor(private http: HttpClient) {
 
 private get route() {
   return this.baseUrl + 'api/auth/';
+}
+
+ngOnInit() {
 }
 
 login(model: any) {
@@ -32,12 +38,16 @@ register(model: any) {
 
 loggedIn() {
   const token = localStorage.getItem('token');
-  return !!token;
+  return !this.jwtHelper.isTokenExpired(token);
 }
 
 logout() {
   localStorage.removeItem('token');
-  console.log('logged out');
+}
+
+decodeToken() {
+  const token = localStorage.getItem('token');
+  this.authUser = this.jwtHelper.decodeToken(token);
 }
 
 }
