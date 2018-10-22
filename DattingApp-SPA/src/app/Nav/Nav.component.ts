@@ -22,6 +22,7 @@ export class NavComponent implements OnInit {
   }
 
   login() {
+    // this.authService.login(this.model);
     this.authService.login(this.model).subscribe(
       next => {
         this.toaster.success('logged in successfully');

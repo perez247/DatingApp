@@ -12,11 +12,13 @@ import { catchError } from 'rxjs/operators';
              catchError((error) => {
                  if (error instanceof HttpErrorResponse) {
                     if (error.status === 401) {
+                        console.log(error.statusText);
                         return throwError(error.statusText);
                     }
 
                     const applicationError = error.headers.get('Application-Error');
                     if (applicationError) {
+                        console.log(applicationError);
                          return throwError(applicationError);
                     }
 
@@ -29,6 +31,7 @@ import { catchError } from 'rxjs/operators';
                             }
                         }
                     }
+                    console.log(error);
                     return throwError(modelStateEror || serverError || 'Server Error');
                  }
              } )
